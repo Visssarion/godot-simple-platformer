@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=4 uid="uid://dedod7wkysl1w"]
+
+[ext_resource type="TileSet" uid="uid://fyi01pdjcfm4" path="res://scenes/tiles/tile_set.tres" id="1_nwa86"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nwa86"]
+radius = 3.0
+
+[node name="TestScene" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(4, 4)
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+texture_filter = 1
+tile_map_data = PackedByteArray("AAD9/wAAAQAOAAAAAAD+/wAAAQAPAAAAAAD//wAAAQAPAAAAAAAAAAAAAQAPAAEAAAABAAAAAQAPAAEAAAACAAAAAQAPAAAAAAADAAAAAQAPAAAAAAAEAAAAAQAQAAAAAAAEAAEAAQAQAAIAAAADAAEAAQAPAAIAAAACAAEAAQAPAAIAAAABAAEAAQAPAAIAAAAAAAEAAQAPAAIAAAD//wEAAQAPAAIAAAD+/wEAAQAPAAIAAAD9/wEAAQAOAAIAAAAAAP//AQAOAAAAAAABAP//AQAQAAEAAAABAP7/AQARAAAAAAD+//r/AAAAAAAAAAD///r/AAABAAAAAAAAAPr/AAABAAAAAAABAPr/AAABAAAAAAACAPr/AAABAAAAAAADAPr/AAACAAAAAAA=")
+tile_set = ExtResource("1_nwa86")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+position = Vector2(-1, -18)
+linear_velocity = Vector2(0, -400)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource("CircleShape2D_nwa86")
