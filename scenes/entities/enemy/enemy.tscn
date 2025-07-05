@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cwersg18o1hyk"]
+[gd_scene load_steps=20 format=3 uid="uid://cwersg18o1hyk"]
 
 [ext_resource type="Script" uid="uid://bo6mepgf1fcld" path="res://scenes/entities/enemy/enemy.gd" id="1_6fawb"]
 [ext_resource type="SpriteFrames" uid="uid://bhmi2bawe5bd" path="res://scenes/entities/enemy/sprites/sprite_frames.tres" id="2_6fawb"]
@@ -10,6 +10,8 @@
 [ext_resource type="Script" uid="uid://bld4ickdxwfad" path="res://scenes/entities/enemy/states/follow.gd" id="8_ddkys"]
 [ext_resource type="Script" uid="uid://dpecx2y6awqv1" path="res://scenes/entities/enemy/states/attack.gd" id="9_ddkys"]
 [ext_resource type="Script" uid="uid://fsboenjmdqud" path="res://scenes/entities/attack_entities/attack.gd" id="10_h26p2"]
+[ext_resource type="Script" uid="uid://clcxeo44n0va2" path="res://scenes/entities/enemy/sprites/animation_player.gd" id="11_8ei1b"]
+[ext_resource type="Script" uid="uid://drt0mka2a34xn" path="res://scenes/entities/attack_entities/hitbox.gd" id="12_frkcr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1y44r"]
 size = Vector2(10, 12)
@@ -18,7 +20,47 @@ size = Vector2(10, 12)
 size = Vector2(16, 15)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8ei1b"]
-size = Vector2(22, 18)
+size = Vector2(31, 18)
+
+[sub_resource type="Animation" id="Animation_h26p2"]
+resource_name = "get_damage"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_8ei1b"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_frkcr"]
+_data = {
+&"RESET": SubResource("Animation_8ei1b"),
+&"get_damage": SubResource("Animation_h26p2")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_frkcr"]
+size = Vector2(6, 9)
 
 [node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("wall_check", "ledge_check")]
 collision_layer = 2
@@ -51,7 +93,7 @@ shape = SubResource("RectangleShape2D_6fawb")
 position = Vector2(0, -8)
 sprite_frames = ExtResource("2_6fawb")
 animation = &"idle"
-frame_progress = 0.116784
+autoplay = "idle"
 
 [node name="LedgeCheck" type="RayCast2D" parent="."]
 position = Vector2(7, 3)
@@ -84,19 +126,42 @@ metadata/_custom_type_script = "uid://4y1ibqjhdc42"
 script = ExtResource("8_ddkys")
 metadata/_custom_type_script = "uid://4y1ibqjhdc42"
 
-[node name="Attack" type="Node" parent="StateMachine" node_paths=PackedStringArray("attack")]
+[node name="Attack" type="Node" parent="StateMachine" node_paths=PackedStringArray("attack", "animated")]
 script = ExtResource("9_ddkys")
 attack = NodePath("../../Attack")
+animated = NodePath("../../AnimatedSprite2D")
 metadata/_custom_type_script = "uid://4y1ibqjhdc42"
 
 [node name="Attack" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
 script = ExtResource("10_h26p2")
 persist = 0.3
 delay = 0.5
 metadata/_custom_type_script = "uid://fsboenjmdqud"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Attack"]
-position = Vector2(3, -5)
+position = Vector2(7.5, -5)
 shape = SubResource("RectangleShape2D_8ei1b")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_frkcr")
+}
+script = ExtResource("11_8ei1b")
+
+[node name="PassiveHitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("12_frkcr")
+damage = 0.3
+metadata/_custom_type_script = "uid://drt0mka2a34xn"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PassiveHitbox"]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_frkcr")
+
+[connection signal="damage_received" from="HealthComponent" to="." method="_on_health_component_damage_received"]
+[connection signal="damage_received" from="HealthComponent" to="AnimationPlayer" method="_on_health_component_damage_received"]
+[connection signal="death" from="HealthComponent" to="." method="queue_free"]
 [connection signal="body_found" from="SearchArea" to="StateMachine/Patrol" method="_on_search_area_body_found"]

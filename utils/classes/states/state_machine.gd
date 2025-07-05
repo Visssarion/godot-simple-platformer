@@ -10,11 +10,11 @@ var current_state: String:
 			if states.has(current_state):
 				states[current_state]._exit_state()
 				states[current_state].process_mode = Node.PROCESS_MODE_DISABLED
-				prints("exited", current_state)
+				#prints("exited", current_state)
 			current_state = value
 			states[current_state]._enter_state()
 			states[current_state].process_mode = Node.PROCESS_MODE_INHERIT
-			prints("entered", current_state)
+			#prints("entered", current_state)
 
 
 func _ready() -> void:

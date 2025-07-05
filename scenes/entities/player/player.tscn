@@ -63,7 +63,8 @@ shape = SubResource("RectangleShape2D_635qg")
 texture_filter = 1
 position = Vector2(0, -4)
 sprite_frames = ExtResource("1_1hmtu")
-animation = &"jump"
+animation = &"idle"
+autoplay = "idle"
 
 [node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("health")]
 collision_layer = 4
@@ -77,6 +78,7 @@ shape = SubResource("RectangleShape2D_1hmtu")
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("3_bjvvg")
+max_health = 6.0
 metadata/_custom_type_script = "uid://bq6fadgsvsdlh"
 
 [node name="AttackSword" type="Area2D" parent="."]

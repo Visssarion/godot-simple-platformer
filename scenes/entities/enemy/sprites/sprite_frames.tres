@@ -1,6 +1,18 @@
-[gd_resource type="SpriteFrames" load_steps=6 format=3 uid="uid://bhmi2bawe5bd"]
+[gd_resource type="SpriteFrames" load_steps=9 format=3 uid="uid://bhmi2bawe5bd"]
 
 [ext_resource type="Texture2D" uid="uid://dqdsyoe5xih5v" path="res://scenes/entities/enemy/sprites/slime_green.png" id="1_8nqg3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8nqg3"]
+atlas = ExtResource("1_8nqg3")
+region = Rect2(48, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_28g4q"]
+atlas = ExtResource("1_8nqg3")
+region = Rect2(0, 48, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wp4bh"]
+atlas = ExtResource("1_8nqg3")
+region = Rect2(24, 48, 24, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_khmxk"]
 atlas = ExtResource("1_8nqg3")
@@ -20,6 +32,20 @@ region = Rect2(72, 24, 24, 24)
 
 [resource]
 animations = [{
+"frames": [{
+"duration": 3.0,
+"texture": SubResource("AtlasTexture_8nqg3")
+}, {
+"duration": 4.0,
+"texture": SubResource("AtlasTexture_28g4q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wp4bh")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 10.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_khmxk")
