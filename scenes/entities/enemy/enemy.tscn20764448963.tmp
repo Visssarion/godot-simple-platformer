@@ -1,0 +1,100 @@
+[gd_scene load_steps=14 format=3 uid="uid://cwersg18o1hyk"]
+
+[ext_resource type="Script" uid="uid://bo6mepgf1fcld" path="res://scenes/entities/enemy/enemy.gd" id="1_6fawb"]
+[ext_resource type="SpriteFrames" uid="uid://bhmi2bawe5bd" path="res://scenes/entities/enemy/sprites/sprite_frames.tres" id="2_6fawb"]
+[ext_resource type="Script" uid="uid://bq6fadgsvsdlh" path="res://scenes/entities/attack_entities/health.gd" id="2_dxsuy"]
+[ext_resource type="Script" uid="uid://7gsjmrt6ytgk" path="res://scenes/entities/attack_entities/health_hurtbox.gd" id="3_0wdte"]
+[ext_resource type="Script" uid="uid://dm23sqabnbst4" path="res://scenes/entities/search_entities/search_area.gd" id="4_in88q"]
+[ext_resource type="Script" uid="uid://cggm5je2tbxh5" path="res://utils/classes/states/state_machine.gd" id="6_7gxlw"]
+[ext_resource type="Script" uid="uid://kda40vsgtc0o" path="res://scenes/entities/enemy/states/patrol.gd" id="7_ddkys"]
+[ext_resource type="Script" uid="uid://bld4ickdxwfad" path="res://scenes/entities/enemy/states/follow.gd" id="8_ddkys"]
+[ext_resource type="Script" uid="uid://dpecx2y6awqv1" path="res://scenes/entities/enemy/states/attack.gd" id="9_ddkys"]
+[ext_resource type="Script" uid="uid://fsboenjmdqud" path="res://scenes/entities/attack_entities/attack.gd" id="10_h26p2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1y44r"]
+size = Vector2(10, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6fawb"]
+size = Vector2(16, 15)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8ei1b"]
+size = Vector2(22, 18)
+
+[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("wall_check", "ledge_check")]
+collision_layer = 2
+script = ExtResource("1_6fawb")
+wall_check = NodePath("WallCheck")
+ledge_check = NodePath("LedgeCheck")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("2_dxsuy")
+max_health = 3.0
+metadata/_custom_type_script = "uid://bq6fadgsvsdlh"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_1y44r")
+
+[node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("health")]
+position = Vector2(0, -4)
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("3_0wdte")
+health = NodePath("../HealthComponent")
+metadata/_custom_type_script = "uid://bbnepiw1a5e7y"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_6fawb")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -8)
+sprite_frames = ExtResource("2_6fawb")
+animation = &"idle"
+frame_progress = 0.116784
+
+[node name="LedgeCheck" type="RayCast2D" parent="."]
+position = Vector2(7, 3)
+target_position = Vector2(0, 3)
+
+[node name="WallCheck" type="RayCast2D" parent="."]
+position = Vector2(7, 3)
+target_position = Vector2(3, 0)
+
+[node name="SearchArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("4_in88q")
+group_name = &"player"
+metadata/_custom_type_script = "uid://dm23sqabnbst4"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SearchArea"]
+polygon = PackedVector2Array(0, 4, 48, 4, 45, -9, 36, -21, 30, -25, 0, -8)
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
+script = ExtResource("6_7gxlw")
+starting_state = NodePath("Patrol")
+metadata/_custom_type_script = "uid://cggm5je2tbxh5"
+
+[node name="Patrol" type="Node" parent="StateMachine"]
+script = ExtResource("7_ddkys")
+metadata/_custom_type_script = "uid://4y1ibqjhdc42"
+
+[node name="Follow" type="Node" parent="StateMachine"]
+script = ExtResource("8_ddkys")
+metadata/_custom_type_script = "uid://4y1ibqjhdc42"
+
+[node name="Attack" type="Node" parent="StateMachine"]
+script = ExtResource("9_ddkys")
+metadata/_custom_type_script = "uid://4y1ibqjhdc42"
+
+[node name="Attack" type="Area2D" parent="."]
+script = ExtResource("10_h26p2")
+persist = 0.3
+metadata/_custom_type_script = "uid://fsboenjmdqud"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Attack"]
+position = Vector2(3, -5)
+shape = SubResource("RectangleShape2D_8ei1b")
+
+[connection signal="body_found" from="SearchArea" to="StateMachine/Patrol" method="_on_search_area_body_found"]

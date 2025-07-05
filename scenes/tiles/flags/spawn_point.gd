@@ -16,4 +16,5 @@ func _ready() -> void:
 	_spawn_player()
 
 func _spawn_player() -> void:
-	pass
+	var player = player_prefab.instantiate()
+	add_sibling(player)

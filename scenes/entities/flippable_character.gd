@@ -5,7 +5,6 @@ enum FacingDirection {RIGHT = 1, LEFT = -1}
 var current_direction: FacingDirection = FacingDirection.RIGHT:
 	set(value):
 		if (current_direction != value):
-			print(value)
 			current_direction = value
 			if current_direction == FacingDirection.RIGHT:
 				rotation = 0

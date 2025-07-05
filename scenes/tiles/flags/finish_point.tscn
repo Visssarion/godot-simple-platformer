@@ -11,9 +11,11 @@ script = ExtResource("1_wtb8e")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
+position = Vector2(0, -4)
 texture = ExtResource("1_0w75u")
 hframes = 2
 frame = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -4)
 shape = SubResource("RectangleShape2D_og4he")
