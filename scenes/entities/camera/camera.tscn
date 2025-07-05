@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bvq2k35i517nj"]
+
+[ext_resource type="Script" uid="uid://dpaecs15bjhbq" path="res://scenes/entities/camera/camera.gd" id="1_3an5o"]
+
+[node name="Camera" type="Camera2D"]
+process_priority = 1
+zoom = Vector2(4, 4)
+script = ExtResource("1_3an5o")
+target_group = &"player"
