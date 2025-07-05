@@ -1,0 +1,57 @@
+[gd_scene load_steps=9 format=3 uid="uid://oco65wgyrrsr"]
+
+[ext_resource type="SpriteFrames" uid="uid://dk81h6rdyejwr" path="res://scenes/entities/player/sprites/animation_frames.tres" id="1_1hmtu"]
+[ext_resource type="Script" uid="uid://b0bn3uqe4snqm" path="res://scenes/entities/player/player.gd" id="1_8akj5"]
+[ext_resource type="Script" uid="uid://fsboenjmdqud" path="res://scenes/entities/attack_entities/attack.gd" id="2_58kc7"]
+[ext_resource type="Texture2D" uid="uid://b6a1v2wfs2buo" path="res://scenes/entities/player/sprites/attack.png" id="2_635qg"]
+[ext_resource type="Script" uid="uid://7gsjmrt6ytgk" path="res://scenes/entities/attack_entities/health_hurtbox.gd" id="2_bjvvg"]
+[ext_resource type="Script" uid="uid://bq6fadgsvsdlh" path="res://scenes/entities/attack_entities/health.gd" id="3_bjvvg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_635qg"]
+size = Vector2(12, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1hmtu"]
+size = Vector2(8, 11)
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("attack") groups=["player"]]
+collision_layer = 2
+script = ExtResource("1_8akj5")
+attack = NodePath("AttackSword")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_635qg")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -4)
+sprite_frames = ExtResource("1_1hmtu")
+animation = &"jump"
+
+[node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("health")]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("2_bjvvg")
+health = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_1hmtu")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("3_bjvvg")
+metadata/_custom_type_script = "uid://bq6fadgsvsdlh"
+
+[node name="AttackSword" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("2_58kc7")
+cooldown = 0.4
+persist = 0.1
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AttackSword"]
+polygon = PackedVector2Array(30, -7, 26, -11, 15, -13, 4, -14, -15, -14, -16, -12, -7, -12, 5, -8, 12, -5, 15, -1, 12, 6, 14, 7, 18, 7, 24, 4, 28, 0, 30, -3)
+
+[node name="Sprite2D" type="Sprite2D" parent="AttackSword"]
+texture_filter = 1
+position = Vector2(0, -5)
+texture = ExtResource("2_635qg")

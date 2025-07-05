@@ -9,15 +9,6 @@ tile_data = PackedInt32Array(0, 0, 0, 1, 65536, 0, 2, 65536, 0, 3, 65536, 0, 4, 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_u0kay"]
 texture = ExtResource("1_tp1ik")
 texture_region_size = Vector2i(8, 8)
-0:4/0 = 0
-0:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -4, -4, 4, 4, 4, 4, -4)
-0:4/0/physics_layer_0/polygon_0/one_way = true
-1:4/0 = 0
-1:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -4, -4, 4, 4, 4, 4, -4)
-1:4/0/physics_layer_0/polygon_0/one_way = true
-5:4/0 = 0
-5:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -4, -4, 4, 4, 4, 4, -4)
-5:4/0/physics_layer_0/polygon_0/one_way = true
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, 4, -4, -4, 4, -4, 4, 4)
 0:0/0/physics_layer_0/polygon_0/one_way = true
