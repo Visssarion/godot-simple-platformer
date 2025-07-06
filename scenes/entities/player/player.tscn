@@ -107,4 +107,5 @@ libraries = {
 script = ExtResource("7_bj7e2")
 player = NodePath("..")
 
+[connection signal="death" from="Health" to="." method="queue_free"]
 [connection signal="attacked" from="AttackSword" to="AttackSword/Sprite2D/AnimationPlayer" method="play" binds= [&"attack_animation"]]

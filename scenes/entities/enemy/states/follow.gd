@@ -12,6 +12,10 @@ func _physics_process(delta: float) -> void:
 	if enemy.is_on_floor():
 		enemy.velocity.y -= enemy.follow_jump
 
+	if not enemy.player:
+		state_machine.current_state = "Patrol"
+		return
+
 	var player_direction: Vector2 = enemy.player.global_position - enemy.global_position
 
 	if player_direction.length() <= enemy.attack_range:

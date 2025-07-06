@@ -22,7 +22,8 @@ signal death
 			damage_received.emit(health-new_value)
 		health = clamp(new_value, 0, max_health)
 		health_updated.emit(health)
-		if(new_value == 0):
+		if(health == 0):
+			print("DEAD")
 			death.emit()
 	get:
 		return health
