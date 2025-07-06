@@ -4,9 +4,11 @@
 [ext_resource type="Script" uid="uid://dd662lweumkyx" path="res://scenes/tiles/flags/finish_point.gd" id="1_wtb8e"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_og4he"]
-size = Vector2(16, 16)
+size = Vector2(12, 13)
 
 [node name="FinishPoint" type="Area2D" groups=["level_finish"]]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("1_wtb8e")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -17,5 +19,5 @@ hframes = 2
 frame = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -4)
+position = Vector2(0, -4.5)
 shape = SubResource("RectangleShape2D_og4he")

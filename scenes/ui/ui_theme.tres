@@ -1,0 +1,17 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://c56esfkypxlsi"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4axpv"]
+bg_color = Color(0.197937, 0.197937, 0.197937, 1)
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+expand_margin_left = 8.0
+expand_margin_top = 8.0
+expand_margin_right = 8.0
+expand_margin_bottom = 8.0
+
+[resource]
+Label/font_sizes/font_size = 24
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_4axpv")

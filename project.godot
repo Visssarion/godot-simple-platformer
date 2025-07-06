@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 level_finish=""
 player_spawn="Flag where player spawns"
 player=""
+enemy_killed_observer="recieves a call of \"on_enemy_killed\" when an enemie dies"
 
 [input]
 

@@ -1,9 +1,10 @@
-[gd_scene load_steps=20 format=3 uid="uid://cwersg18o1hyk"]
+[gd_scene load_steps=21 format=3 uid="uid://cwersg18o1hyk"]
 
 [ext_resource type="Script" uid="uid://bo6mepgf1fcld" path="res://scenes/entities/enemy/enemy.gd" id="1_6fawb"]
 [ext_resource type="SpriteFrames" uid="uid://bhmi2bawe5bd" path="res://scenes/entities/enemy/sprites/sprite_frames.tres" id="2_6fawb"]
 [ext_resource type="Script" uid="uid://bq6fadgsvsdlh" path="res://scenes/entities/attack_entities/health.gd" id="2_dxsuy"]
 [ext_resource type="Script" uid="uid://7gsjmrt6ytgk" path="res://scenes/entities/attack_entities/health_hurtbox.gd" id="3_0wdte"]
+[ext_resource type="Script" uid="uid://cyw5y0lvepj8r" path="res://scenes/entities/enemy/enemy_killed_notif.gd" id="3_h0e4h"]
 [ext_resource type="Script" uid="uid://dm23sqabnbst4" path="res://scenes/entities/search_entities/search_area.gd" id="4_in88q"]
 [ext_resource type="Script" uid="uid://cggm5je2tbxh5" path="res://utils/classes/states/state_machine.gd" id="6_7gxlw"]
 [ext_resource type="Script" uid="uid://kda40vsgtc0o" path="res://scenes/entities/enemy/states/patrol.gd" id="7_ddkys"]
@@ -68,10 +69,13 @@ script = ExtResource("1_6fawb")
 wall_check = NodePath("WallCheck")
 ledge_check = NodePath("LedgeCheck")
 
-[node name="HealthComponent" type="Node" parent="."]
+[node name="HealthComponent" type="Node" parent="." groups=["enemy_killed_observer"]]
 script = ExtResource("2_dxsuy")
 max_health = 3.0
 metadata/_custom_type_script = "uid://bq6fadgsvsdlh"
+
+[node name="DeathSignaler" type="Node" parent="HealthComponent"]
+script = ExtResource("3_h0e4h")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -2)
@@ -164,4 +168,5 @@ shape = SubResource("RectangleShape2D_frkcr")
 [connection signal="damage_received" from="HealthComponent" to="." method="_on_health_component_damage_received"]
 [connection signal="damage_received" from="HealthComponent" to="AnimationPlayer" method="_on_health_component_damage_received"]
 [connection signal="death" from="HealthComponent" to="." method="queue_free"]
+[connection signal="death" from="HealthComponent" to="HealthComponent/DeathSignaler" method="_on_health_component_death"]
 [connection signal="body_found" from="SearchArea" to="StateMachine/Patrol" method="_on_search_area_body_found"]
