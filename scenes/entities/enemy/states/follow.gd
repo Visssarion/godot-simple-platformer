@@ -10,14 +10,14 @@ func _physics_process(delta: float) -> void:
 		enemy.velocity += enemy.get_gravity() * delta
 
 	if enemy.is_on_floor():
-		enemy.velocity.y -= enemy.FOLLOW_JUMP
+		enemy.velocity.y -= enemy.follow_jump
 
 	var player_direction: Vector2 = enemy.player.global_position - enemy.global_position
 
-	if player_direction.length() <= enemy.ATTACK_RANGE:
+	if player_direction.length() <= enemy.attack_range:
 		state_machine.current_state = "Attack"
 
 	enemy.current_direction = enemy.sign_to_facing_direction(sign(player_direction.x))
 
-	enemy.velocity.x = enemy.facing_direction_to_sign(enemy.current_direction) * enemy.FOLLOW_SPEED
+	enemy.velocity.x = enemy.facing_direction_to_sign(enemy.current_direction) * enemy.follow_speed
 	enemy.move_and_slide()

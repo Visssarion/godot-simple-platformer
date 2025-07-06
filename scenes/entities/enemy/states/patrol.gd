@@ -12,7 +12,7 @@ func _physics_process(delta: float) -> void:
 	if enemy.wall_check.is_colliding() or not enemy.ledge_check.is_colliding():
 		enemy.current_direction = enemy.flip_direction(enemy.current_direction)
 
-	enemy.velocity.x = enemy.facing_direction_to_sign(enemy.current_direction) * enemy.PATROL_SPEED
+	enemy.velocity.x = enemy.facing_direction_to_sign(enemy.current_direction) * enemy.patrol_speed
 	enemy.move_and_slide()
 
 

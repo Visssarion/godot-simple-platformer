@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://oco65wgyrrsr"]
+[gd_scene load_steps=13 format=3 uid="uid://oco65wgyrrsr"]
 
 [ext_resource type="SpriteFrames" uid="uid://dk81h6rdyejwr" path="res://scenes/entities/player/sprites/animation_frames.tres" id="1_1hmtu"]
 [ext_resource type="Script" uid="uid://b0bn3uqe4snqm" path="res://scenes/entities/player/player.gd" id="1_8akj5"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://b6a1v2wfs2buo" path="res://scenes/entities/player/sprites/attack.png" id="2_635qg"]
 [ext_resource type="Script" uid="uid://7gsjmrt6ytgk" path="res://scenes/entities/attack_entities/health_hurtbox.gd" id="2_bjvvg"]
 [ext_resource type="Script" uid="uid://bq6fadgsvsdlh" path="res://scenes/entities/attack_entities/health.gd" id="3_bjvvg"]
+[ext_resource type="Script" uid="uid://byjpdsyagsgvv" path="res://scenes/entities/player/player_controller.gd" id="7_bj7e2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_635qg"]
 size = Vector2(12, 14)
@@ -100,5 +101,9 @@ texture = ExtResource("2_635qg")
 libraries = {
 &"": SubResource("AnimationLibrary_1murt")
 }
+
+[node name="Node" type="Node" parent="." node_paths=PackedStringArray("player")]
+script = ExtResource("7_bj7e2")
+player = NodePath("..")
 
 [connection signal="attacked" from="AttackSword" to="AttackSword/Sprite2D/AnimationPlayer" method="play" binds= [&"attack_animation"]]
