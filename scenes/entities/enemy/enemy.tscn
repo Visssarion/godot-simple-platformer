@@ -92,7 +92,7 @@ shape = SubResource("RectangleShape2D_6fawb")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -8)
 sprite_frames = ExtResource("2_6fawb")
-animation = &"idle"
+animation = &"attack"
 autoplay = "idle"
 
 [node name="LedgeCheck" type="RayCast2D" parent="."]

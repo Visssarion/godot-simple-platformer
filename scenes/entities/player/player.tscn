@@ -71,13 +71,14 @@ autoplay = "idle"
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("2_bjvvg")
-health = NodePath("../HealthComponent")
+health = NodePath("../Health")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_1hmtu")
 
-[node name="HealthComponent" type="Node" parent="."]
+[node name="Health" type="Node" parent="."]
+unique_name_in_owner = true
 script = ExtResource("3_bjvvg")
 max_health = 6.0
 metadata/_custom_type_script = "uid://bq6fadgsvsdlh"

@@ -6,6 +6,8 @@ class_name Player extends FlippableCharacter
 
 @export var attack: Attack
 
+@onready var health: HealthComponent = get_node(^"%Health")
+
 var input_direction: float = 0.0
 var input_jump: bool = false
 var input_attack: bool = false

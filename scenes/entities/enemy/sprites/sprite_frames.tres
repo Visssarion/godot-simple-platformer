@@ -36,7 +36,7 @@ animations = [{
 "duration": 3.0,
 "texture": SubResource("AtlasTexture_8nqg3")
 }, {
-"duration": 4.0,
+"duration": 5.0,
 "texture": SubResource("AtlasTexture_28g4q")
 }, {
 "duration": 1.0,
